@@ -4,6 +4,8 @@ f2=(x+3)*(x-2);
 f3=(x^2-7*x+10)/(x-2);
 f4=(x^2-7*x+10);
 
+fexam=(cos(x)+x^2)/(sin(x)^2-6*x+1);
+
 %% Expand
 disp(expand(f2))
 
@@ -27,3 +29,10 @@ disp(diff(f1, x, 2))
 
 %% Integrals
 disp(int(f1, x))
+
+%% Exam Problem
+integral=vpa(int(fexam,x,1,5));
+disp(integral)
+derivative=diff(fexam,x);
+fp_exam=matlabFunction(derivative);
+disp(fp_exam(1))
