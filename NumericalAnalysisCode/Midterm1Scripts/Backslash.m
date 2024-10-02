@@ -1,7 +1,7 @@
 % remember to scale correctly
-A=[exp(1),exp(-1);...
-   1,-1];
+A=[-0.75,-0.5;...
+   0.5,-2];
 
-b=[1;0];
+b=[0.5;0];
 
 disp(A\b)
