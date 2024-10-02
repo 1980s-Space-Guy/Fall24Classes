@@ -25,6 +25,5 @@ quadratic_vp25=a+b*T+c*T^2;
 fprintf('Using quadratic interpolation, the vapor pressure at %2.0f degrees Celsius is: %3.3f mm Hg\n', T, quadratic_vp25);
 
 %% Part C
-
 spline_vp25=spline(Tp,VP,T);
 fprintf('Using spline interpolation, the vapor pressure at %2.0f degrees Celsius is: %3.3f mm Hg\n', T, spline_vp25);
