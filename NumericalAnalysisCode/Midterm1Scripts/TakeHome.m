@@ -32,7 +32,7 @@ plot(fF_range, yy)
 
 
 %% Part A
-function val=Diameter_Function(D)
+function val=Diameter_fzero(D)
     T=25; % Celsius
     T=T+273.15; % K
     Q=2.5; % L/s
@@ -64,14 +64,14 @@ end
 diameter_range=0.01:0.0001:0.3;
 yy=zeros(size(diameter_range));
 for i=1:length(diameter_range)
-    yy(i)=Diameter_Function(diameter_range(i));
+    yy(i)=Diameter_fzero(diameter_range(i));
 end
 %plot(diameter_range, yy)
 
 options=optimset('Display', 'off');
-part_a_sol=fzero(@Diameter_Function, [0.024,0.028], options); % solution in m
+part_a_sol=fzero(@Diameter_fzero, [0.024,0.028], options); % solution in m
 
-fprintf('The diameter of the pipe at 103 kPa is %0.4f inches', part_a_sol*39.3701)
+fprintf('The diameter of the pipe at 103 kPa is %0.4f inches\n', part_a_sol*39.3701)
 
 %% Part B
 fprintf('For a Diameter of 1.0327 inches, you should choose the 1 in nominal pipe size\n')
@@ -152,4 +152,4 @@ end
 
 options=optimset('Display', 'off');
 part_d_sol=fzero(@Temperature_fzero, [8,12], options); % Solution in Celsius
-fprintf('Minimum Temperature: %1.3f degrees Celsius', part_d_sol)
+fprintf('Minimum Temperature: %1.3f degrees Celsius\n', part_d_sol)
