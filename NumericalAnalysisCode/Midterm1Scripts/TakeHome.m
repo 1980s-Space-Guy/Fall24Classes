@@ -41,12 +41,6 @@ function val=Diameter_fzero(D)
     DeltaPMax=103; % kPa
     DeltaPMax=DeltaPMax*1000; % Pa
 
-    fv=@(Q,D) 4*Q/(pi*D^2);
-    ffFL=@(Re) 16/Re;
-    frhoW=@(T) 46.048+T*(9.418+T*(-0.0329+T*(4.882e-5-2.895e-8*T)));
-    fmu=@(T) exp(-10.547+541.69/(T-144.53));
-    fRe=@(D,v,rhoW,mu) D*v*rhoW/mu;
-
     rhoW=frhoW(T);
     v=fv(Q,D);
     mu=fmu(T);
@@ -87,12 +81,6 @@ function pressure_drop=Temperature_Function(T)
     D_inside=D_outside-2*wall_thickness; % in
     D_inside=D_inside/39.3701; % m
 
-    fv=@(Q,D) 4*Q/(pi*D^2);
-    ffFL=@(Re) 16/Re;
-    frhoW=@(T) 46.048+T*(9.418+T*(-0.0329+T*(4.882e-5-2.895e-8*T)));
-    fmu=@(T) exp(-10.547+541.69/(T-144.53));
-    fRe=@(D,v,rhoW,mu) D*v*rhoW/mu;
-
     rhoW=frhoW(T);
     v=fv(Q,D_inside);
     mu=fmu(T);
@@ -129,12 +117,6 @@ function val=Temperature_fzero(T)
     D_inside=D_inside/39.3701; % m
     DeltaPMax=103; % kPa
     DeltaPMax=DeltaPMax*1000; % Pa
-
-    fv=@(Q,D) 4*Q/(pi*D^2);
-    ffFL=@(Re) 16/Re;
-    frhoW=@(T) 46.048+T*(9.418+T*(-0.0329+T*(4.882e-5-2.895e-8*T)));
-    fmu=@(T) exp(-10.547+541.69/(T-144.53));
-    fRe=@(D,v,rhoW,mu) D*v*rhoW/mu;
 
     rhoW=frhoW(T);
     v=fv(Q,D_inside);
