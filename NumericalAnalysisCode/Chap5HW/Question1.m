@@ -1,10 +1,10 @@
 function Question1
-%xx2 = [0.1:0.001:15]; %#ok<NBRAK2>
-%for i = 1:length(xx2)
-%    yy(i)=gx(xx2(i));
-%end
-%plot(xx2, yy)
-%ylim([-5,5])
+xx2 = [0.001:0.001:15]; %#ok<NBRAK2>
+for i = 1:length(xx2)
+   yy(i)=gx(xx2(i));
+end
+plot(xx2, yy)
+ylim([-5,5])
 
 options=optimset('Display', 'off');
 sol1_range=[4.19,4.21];
@@ -20,23 +20,23 @@ x2_sol5=fzero(@gx, sol5_range, options);
 
 xx2 = x2_sol1;
 [x13_sol1,~]=fsolve(@fx,[1,1],options);
-fprintf('Solution 1: x1 = %2.3f, x2 = %2.3f, x3 = %2.3f\n\n', x2_sol1, x13_sol1(1), x13_sol1(2))
+fprintf('Solution 1: x1 = %2.3f, x2 = %2.3f, x3 = %2.3f\n\n', x13_sol1(1) ,x2_sol1, x13_sol1(2))
 
 xx2 = x2_sol2;
 [x13_sol2,~]=fsolve(@fx,[1,1],options);
-fprintf('Solution 2: x1 = %2.3f, x2 = %2.3f, x3 = %2.3f\n\n', x2_sol2, x13_sol2(1), x13_sol2(2))
+fprintf('Solution 2: x1 = %2.3f, x2 = %2.3f, x3 = %2.3f\n\n', x13_sol2(1), x2_sol2, x13_sol2(2))
 
 xx2 = x2_sol3;
 [x13_sol3,~]=fsolve(@fx,[1,1],options);
-fprintf('Solution 3: x1 = %2.3f, x2 = %2.3f, x3 = %2.3f\n\n', x2_sol3, x13_sol3(1), x13_sol3(2))
+fprintf('Solution 3: x1 = %2.3f, x2 = %2.3f, x3 = %2.3f\n\n', x13_sol3(1), x2_sol3, x13_sol3(2))
 
 xx2 = x2_sol4;
 [x13_sol4,~]=fsolve(@fx,[1,1],options);
-fprintf('Solution 4: x1 = %2.3f, x2 = %2.3f, x3 = %2.3f\n\n', x2_sol4, x13_sol4(1), x13_sol4(2))
+fprintf('Solution 4: x1 = %2.3f, x2 = %2.3f, x3 = %2.3f\n\n', x13_sol4(1), x2_sol4, x13_sol4(2))
 
 xx2 = x2_sol5;
 [x13_sol5,~]=fsolve(@fx,[1,1],options);
-fprintf('Solution 5: x1 = %2.3f, x2 = %2.3f, x3 = %2.3f\n\n', x2_sol5, x13_sol5(1), x13_sol5(2))
+fprintf('Solution 5: x1 = %2.3f, x2 = %2.3f, x3 = %2.3f\n\n', x13_sol5(1), x2_sol5, x13_sol5(2))
 
     function ff=fx(z)
         % z(1) is x1, z(2) is x3
