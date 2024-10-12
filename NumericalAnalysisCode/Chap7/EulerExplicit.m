@@ -1,23 +1,30 @@
-f=@(x,y) x*cos(x)+y;
-fprime=@(x,y) cos(x)-x*sin(x)+f(x,y);
+dy1=@(x,y1,y2) y1-2*y2;
+dy2=@(x,y1,y2) 2*y1-4*y2;
+f1prime=@(x,y1,y2) dy1(x,y1,y2)-2*dy2(x,y1,y2);
+f2prime=@(x,y1,y2) 2*dy1(x,y1,y2)-4*dy2(x,y1,y2);
 
 x(1)=0;
-y(1)=0.5;
+y1(1)=0;
+y2(1)=1;
 
-error(1)=0;
+error_y1(1)=0;
+error_y2(1)=0;
 
 n=1;
-xf=0.05;
-step=(xf-x(1))/n;
+xf=0.5;
+dx=(xf-x(1))/n;
 
 for i=1:n
-    x(i+1)=x(i)+step; %#ok<SAGROW>
-    y(i+1)=y(i)+step*f(x(i),y(i)); %#ok<SAGROW>
-    error(i+1)=fprime(x(i), y(i))*step^2/2; %#ok<SAGROW>
+    x(i+1)=x(i)+dx; %#ok<SAGROW>
+    y1(i+1)=y1(i)+dx*dy1(x(i),y1(i),y2(i)); %#ok<SAGROW>
+    y2(i+1)=y2(i)+dx*dy2(x(i),y1(i),y2(i)); %#ok<SAGROW>
+
+    error_y1(i+1)=abs(f1prime(x(i),y1(i),y2(i))*dx^2/2); %#ok<SAGROW>
+    error_y2(i+1)=abs(f2prime(x(i),y1(i),y2(i))*dx^2/2); %#ok<SAGROW>
 end
 
-disp(y)
-fprintf('%1.6f\n', error(2))
+disp(error_y1)
+disp(error_y2)
 %% Explicit Euler with error control (What the built in function does)
 f=@(x,y) x*cos(x)+y;
 fprime=@(x,y) cos(x)-x*sin(x)+f(x,y);

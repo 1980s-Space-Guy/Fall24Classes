@@ -1,14 +1,16 @@
 f=@(x,y) x*cos(x)+y;
 
-x=0;
-y=0.5;
-step=0.05;
-xf=0.05;
+x(1)=0;
+y(1)=0.5;
 
-for i=x:step:xf-step
-    fz=@(yp1) -yp1+y+step*f(i+step,yp1);
-    yp1=fzero(fz, y, optimset('Display', 'off'));
-    y=yp1;
+n=20;
+xf=1;
+dx=(xf-x(1))/n;
+
+for i=1:n
+    x(i+1)=x(i)+dx;
+    fz=@(yp1) -yp1+y(i)+dx*f(x(i+1),yp1);
+    y(i+1)=fzero(fz, y(i), optimset('Display', 'off'));
 end
 
-disp(yp1)
+plot(x, y)
