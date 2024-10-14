@@ -10,7 +10,7 @@ y2(1)=1;
 error_y1(1)=0;
 error_y2(1)=0;
 
-n=1;
+n=100;
 xf=0.5;
 dx=(xf-x(1))/n;
 
@@ -23,8 +23,8 @@ for i=1:n
     error_y2(i+1)=abs(f2prime(x(i),y1(i),y2(i))*dx^2/2); %#ok<SAGROW>
 end
 
-disp(error_y1)
-disp(error_y2)
+plot(x, y1); hold on;
+plot(x, y2)
 %% Explicit Euler with error control (What the built in function does)
 f=@(x,y) x*cos(x)+y;
 fprime=@(x,y) cos(x)-x*sin(x)+f(x,y);
