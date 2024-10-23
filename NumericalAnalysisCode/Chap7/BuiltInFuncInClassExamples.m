@@ -38,3 +38,18 @@ function ode=goofy_function(t, y)
     ode(2,1)=t-5*y(1)-2*y(1)*y(2);
     ode(3,1)=(5-y(3)^2)/y(1);
 end
+
+%% Example 3
+hit_ground_time=fzero(@ground_funtion,[0,2]);
+disp(hit_ground_time)
+
+function pos=ground_funtion(time)
+    soln=ode45(@silly_function,[0,2],[5,0]);
+    pos=deval(soln,time,1);
+
+    function dydt=silly_function(t,y)
+        % y(1) is position, y(2) is velocity
+        dydt(1,1)=y(2);
+        dydt(2,1)=-32+0.01*y(2)^2;
+    end
+end
