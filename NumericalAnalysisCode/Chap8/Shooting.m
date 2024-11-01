@@ -59,3 +59,45 @@ function error=shooting_practice(guess)
         ode_to_solve(3,1)=-y(2)-4*y(1);
     end
 end
+
+%% BVP4C quiz problem
+
+% Plotting to find multiple solutions
+% zz=-5:15;
+% for i=1:length(zz)
+%     error_temp(i)=builtin_quiz(zz(i)); %#ok<SAGROW>
+% end
+% plot(zz,error_temp)
+
+correct_init_1=fzero(@builtin_quiz,[-1,1]);
+correct_init_2=fzero(@builtin_quiz,[10,11]);
+timespan=[0,1];
+correct_y0_1=[0,correct_init_1];
+correct_y0_2=[0,correct_init_2];
+sol1=ode45(@bwahaha,timespan,correct_y0_1);
+sol2=ode45(@bwahaha,timespan,correct_y0_2);
+xx=linspace(0,1,81);
+yy1=deval(sol1,xx,1);
+yy2=deval(sol2,xx,1);
+plot(xx,yy1); hold on;
+plot(xx,yy2)
+
+function dydx=bwahaha(~,y)
+    %y(1) is y, y(2) is y'
+    dydx(1,1)=y(2);
+    dydx(2,1)=-exp(y(1));
+end
+
+function error=builtin_quiz(guess)
+    timespan=[0,1];
+    y0=[0,guess];
+    soln_ode=ode45(@hahaha,timespan,y0);
+    dy_end=deval(soln_ode,1,1); % finds the y value at x=1
+    error=dy_end;
+
+    function dydx=hahaha(~,y)
+        %y(1) is y, y(2) is y'
+        dydx(1,1)=y(2);
+        dydx(2,1)=-exp(y(1));
+    end
+end
