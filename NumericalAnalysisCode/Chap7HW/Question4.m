@@ -1,5 +1,5 @@
 function Question4
-    t_span=[1,100];
+    t_span=[0,100];
     y0=[1;300];
     options=optimset('Display','off');
     soln=ode45(@odefun,t_span,y0,options);

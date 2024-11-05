@@ -5,6 +5,9 @@ function Question1
     soln=ode45(@odefun,x_span,y0,options);
     y_3=deval(soln,3,1);
     fprintf('y(3) is: %1.4f\n', y_3)
+    xx=linspace(0,3,100);
+    yy=deval(soln,xx,1);
+    plot(xx,yy)
     function dydx=odefun(x,z)
         % z(1) is y, z(2) is y'
         dydx(1,1)=z(2);

@@ -1,6 +1,6 @@
 function Question3
     x_span=[0,1000];
-    y0=[4;1.1;4.0];
+    y0=[4;1.1;4];
     options=optimset('Display','off');
     soln=ode15s(@odefun,x_span,y0,options);
     y1_1000=deval(soln,1000,1);
@@ -9,6 +9,9 @@ function Question3
     fprintf('y1(1000) is: %1.2f\n', y1_1000)
     fprintf('y2(1000) is: %3.0f\n', y2_1000)
     fprintf('y3(1000) is: %1.2f\n', y3_1000)
+    xx=linspace(0,1000,10000);
+    yy=deval(soln,xx);
+    plot(xx,yy)
     function dydx=odefun(x,z)
         % z(1) is y1, z(2) is y2, z(3) is y3
         dydx(1,1)=77.27*(z(2)-z(1)*z(2)+z(1)-8.375*10^-6*z(1)^2);
