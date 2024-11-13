@@ -21,36 +21,33 @@ disp(y(end))
 % fprintf('%1.6f\n', error_y(2))
 
 %% System ODE Exercise
-L=2;
-V1=10;
-V2=5;
-dC1dt=@(t,C1,C2) -L/V1*C1;
-dC2dt=@(t,C1,C2) -L/V2*(C2-C1);
+y1p=@(x,y1,y2) -y1^2+y2;
+y2p=@(x,y1,y2) y1-4*y2^2;
 % f1prime=@(x,y1,y2) dy1(x,y1,y2)-2*dy2(x,y1,y2);
 % f2prime=@(x,y1,y2) 2*dy1(x,y1,y2)-4*dy2(x,y1,y2);
 
-t(1)=0;
-C1(1)=0.3;
-C2(1)=0;
+x(1)=0;
+y1(1)=2;
+y2(1)=2;
 
 % error_y1(1)=0;
 % error_y2(1)=0;
 
 n=1;
-tf=0.5;
-dx=(tf-t(1))/n;
+tf=0.1;
+dx=(tf-x(1))/n;
 
 for i=1:n
-    t(i+1)=t(i)+dx; %#ok<SAGROW>
-    C1(i+1)=C1(i)+dx*dC1dt(t(i),C1(i),C2(i)); %#ok<SAGROW>
-    C2(i+1)=C2(i)+dx*dC2dt(t(i),C1(i),C2(i)); %#ok<SAGROW>
+    x(i+1)=x(i)+dx; %#ok<SAGROW>
+    y1(i+1)=y1(i)+dx*y1p(x(i),y1(i),y2(i)); %#ok<SAGROW>
+    y2(i+1)=y2(i)+dx*y2p(x(i),y1(i),y2(i)); %#ok<SAGROW>
 
     % error_y1(i+1)=abs(f1prime(x(i),y1(i),y2(i))*dx^2/2); %#ok<SAGROW>
     % error_y2(i+1)=abs(f2prime(x(i),y1(i),y2(i))*dx^2/2); %#ok<SAGROW>
 end
 
-plot(t, C1); hold on;
-plot(t, C2)
+disp(y1)
+disp(y2)
 
 %% Explicit Euler with error control (What the built in function does)
 % This considers not just error, but stability too
