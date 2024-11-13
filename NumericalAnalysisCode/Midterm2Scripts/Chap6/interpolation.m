@@ -3,7 +3,7 @@ dx=1;
 xx=[-1.6,7.6,15.4,26.1,42.2,60.6];
 ff=[20,40,60,100,200,400];
 
-x=25;
+x=50;
 for i=1:length(xx)
     if xx(i)>x
         % for linear interpolation

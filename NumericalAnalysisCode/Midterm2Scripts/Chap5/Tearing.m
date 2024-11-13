@@ -13,7 +13,7 @@
 % you get from fzero
 
 % In the gx function, change the variables gotton from fsolve to the ones
-% That aren't pre determined. Then use the question you didn't use to find
+% That aren't pre determined. Then use the formula you didn't use to find
 % the undetermined variables to check if your solution is valid (equals 0)
 
 % Make a solution sequence for every root you are trying to find
@@ -33,16 +33,15 @@ options=optimset('Display', 'off');
 
 % sol1_range=[0.9,1.2];
 % x1_sol1=fzero(@gx, sol1_range, options);
-% xx1 = x1_sol1;
+% xx2 = x1_sol1;
 % [x23_sol1,~]=fsolve(@fx2,[1,1],options);
 % fprintf('Solution 1: x1 = %2.3f, x2 = %2.3f, x3 = %2.3f\n\n', x1_sol1, x23_sol1(1), x23_sol1(2))
 % 
 % sol2_range=[1.8,2.2];
 % x1_sol2=fzero(@gx, sol2_range, options);
-% xx1 = x1_sol2;
+% xx2 = x1_sol2;
 % [x23_sol2,~]=fsolve(@fx2,[1,1],options);
 % fprintf('Solution 2: x1 = %2.3f, x2 = %2.3f, x3 = %2.3f\n\n', x1_sol2, x23_sol2(1), x23_sol2(2))
-
 
     function ff=fx2(z)
         % z(1) is x1, z(2) is x3

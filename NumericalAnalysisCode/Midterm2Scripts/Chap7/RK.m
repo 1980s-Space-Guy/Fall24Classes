@@ -34,15 +34,15 @@ f=@(x,y) x*cos(x)+y;
 % xi is initial x, y is inital y
 xi=0;
 y=0.5;
-step=0.05;
+dx=0.05;
 xf=0.05;
 
-for x=xi:step:xf-step
+for x=xi:dx:xf-dx
     k1=f(x,y);
-    k2=f(x+step/2,y+step*k1/2);
-    k3=f(x+step/2,y+step*k2/2);
-    k4=f(x+step,y+k3*step);
-    y=y+step/6*(k1+2*k2+2*k3+k4);
+    k2=f(x+dx/2,y+dx*k1/2);
+    k3=f(x+dx/2,y+dx*k2/2);
+    k4=f(x+dx,y+k3*dx);
+    y=y+dx/6*(k1+2*k2+2*k3+k4);
 end
 
 fprintf('%3.5f\n', y)

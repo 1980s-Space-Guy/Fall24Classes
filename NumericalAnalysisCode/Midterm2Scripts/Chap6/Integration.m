@@ -9,7 +9,6 @@ intf=trapz(xx,ff);
 disp(intf)
 
 %% Simpsons Rule
-
 intf=0;
 for i=1:length(xx)
     if i==1 || i==length(xx)

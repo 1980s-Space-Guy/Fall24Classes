@@ -1,24 +1,24 @@
 %% One diff eqs
 dy=@(x,y) x*cos(x)+y;
-fprime=@(x,y) x*-sin(x)+cos(x)+dy(x,y);
+%fprime=@(x,y) x*-sin(x)+cos(x)+dy(x,y);
 
 x(1)=0;
 y(1)=0.5;
 
 error_y(1)=0;
 
-n=1;
-xf=0.05;
+n=200;
+xf=10;
 dx=(xf-x(1))/n;
 
 for i=1:n
     x(i+1)=x(i)+dx; %#ok<SAGROW>
     y(i+1)=y(i)+dx*dy(x(i),y(i)); %#ok<SAGROW>
-    error_y(i+1)=abs(fprime(x(i),y(i))*dx^2/2); %#ok<SAGROW>
+    %error_y(i+1)=abs(fprime(x(i),y(i))*dx^2/2); %#ok<SAGROW>
 end
 
-disp(y)
-fprintf('%1.6f\n', error_y(2))
+disp(y(end))
+% fprintf('%1.6f\n', error_y(2))
 
 %% System ODE Exercise
 L=2;
