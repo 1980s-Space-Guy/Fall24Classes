@@ -1,32 +1,29 @@
 %% 2nd order System ODE Exercise
-L=2;
-V1=10;
-V2=5;
-dC1dt=@(t,C1,C2) -L/V1*C1;
-dC2dt=@(t,C1,C2) -L/V2*(C2-C1);
+y1p=@(x,y1,y2) -y1^2+y2;
+y2p=@(x,y1,y2) y1-4*y2^2;
 
-t(1)=0;
-C1(1)=0.3;
-C2(1)=0;
+x(1)=0;
+y1(1)=2;
+y2(1)=2;
 
 n=1;
-tf=0.5;
-dx=(tf-t(1))/n;
+xf=0.1;
+dx=(xf-x(1))/n;
 
 for i=1:n
-    t(i+1)=t(i)+dx; %#ok<SAGROW>
-    k11=dx*dC1dt(t(i),C1(i),C2(i));
-    k12=dx*dC2dt(t(i),C1(i),C2(i));
+    x(i+1)=x(i)+dx; %#ok<SAGROW>
+    k11=dx*y1p(x(i),y1(i),y2(i));
+    k12=dx*y2p(x(i),y1(i),y2(i));
 
-    k21=dx*dC1dt(t(i)+1/2*dx,C1(i)+1/2*k11,C2(i)+1/2*k12);
-    k22=dx*dC2dt(t(i)+1/2*dx,C1(i)+1/2*k11,C2(i)+1/2*k12);
+    k21=dx*y1p(x(i)+1/2*dx,y1(i)+1/2*k11,y2(i)+1/2*k12);
+    k22=dx*y2p(x(i)+1/2*dx,y1(i)+1/2*k11,y2(i)+1/2*k12);
 
-    C1(i+1)=C1(i)+k21; %#ok<SAGROW>
-    C2(i+1)=C2(i)+k22; %#ok<SAGROW>
+    y1(i+1)=y1(i)+k21; %#ok<SAGROW>
+    y2(i+1)=y2(i)+k22; %#ok<SAGROW>
 end
 
-plot(t, C1); hold on;
-plot(t, C2)
+disp(y1)
+disp(y2)
 
 %% Fourth order Quiz
 f=@(x,y) x*cos(x)+y;

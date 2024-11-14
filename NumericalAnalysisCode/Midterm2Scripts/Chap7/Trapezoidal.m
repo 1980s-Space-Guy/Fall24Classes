@@ -15,15 +15,15 @@ end
 disp(y)
 
 %% Trapezoidal System of ODEs
-f1=@(x,y1,y2) y1-2*y2;
-f2=@(x,y1,y2) 2*y1-4*y2;
+f1=@(x,y1,y2) -y1^2+y2;
+f2=@(x,y1,y2) y1-4*y2^2;
 
 x(1)=0;
-y1(1)=0;
-y2(1)=1;
+y1(1)=2;
+y2(1)=2;
 
-n=200;
-xf=9;
+n=1;
+xf=0.1;
 dx=(xf-x(1))/n;
 
 for i=1:n
@@ -39,5 +39,5 @@ for i=1:n
     y2(i+1)=y_next_sol(2);
 end
 
-plot(x, y1); hold on;
-plot(x, y2)
+disp(y1)
+disp(y2)
