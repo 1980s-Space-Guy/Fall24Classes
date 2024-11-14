@@ -1,27 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%                               NOMENCLATURE
-%
-% alpha - over-relaxation factor
-% dx - distance between neigbor nodes, dx=x/(n-1)
-% error - the value of the largest relative error in the node points
-% error_t - the relative error of a node point
-% itr_max - the maximum number of iterations allowed
-% L - total length
-% n - number of nodes;
-% tol - the convergence criterion
-% x - location of each node
-% y0 - the vector of initial values of dependent variable at the node
-%      points
-% y_c - the calculated value of a node point during the iterative solution
-% Y - the vector of the latest values for the node points
-%
-%                                                       Written by Shu Xu
-%                                                       08/02/2013
-%                                                       Revised 9/4/13 JBR
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                 PROGRAM 
 function Question1
 clc;close all;                       % Clear workspace and command window, 
                                      %      close all figures
@@ -59,21 +35,7 @@ for i=1:itr_max
 
     if error<tol; break; end        % Check for convergence
 end
-%% Output %%
-if i>itr_max-1                     % Check for maximum iteration limit 
-    fprintf('Maximum iterations exceeded without convergence\n')
-end
-fprintf('The nonlinear BVP problem has been solved by the SOR method!\n');
-fprintf('The distribution of Y is:\n');
-fprintf('Nodes,\t Position,\t Y value\n');
-k=0;
-for i=1:n
-    if k==0                         % Print every 4th value
-        fprintf(' I=%d,\t L=%2.5f,\t Y=%2.5f\n',i,x(i),Y(i));
-    end
-    k=k+1;     
-    if k==4; k=0; end
-end
+fprintf('Y at x=l: %1.3f\n', Y(end))
 
 plot(x,Y)
 %
@@ -84,5 +46,3 @@ plot(x,Y)
         yc=(YY(ii-1)+YY(ii+1))/(5*dx^2+2);
     end
 end
-%                                PROGRAM END
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

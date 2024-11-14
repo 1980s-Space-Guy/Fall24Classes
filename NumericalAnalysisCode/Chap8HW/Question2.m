@@ -2,7 +2,8 @@ function Question2
     xx=linspace(0,1,50);
     solninit=bvpinit(xx,@funinit);
     soln=bvp4c(@odefun,@funbc,solninit);
-    yy=deval(soln,xx);
+    yy=deval(soln,xx,1);
+    fprintf('Y at x=l: %1.3f\n', yy(end))
     plot(xx,yy)
 
     function dydx=odefun(x,y)

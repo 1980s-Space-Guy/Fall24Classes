@@ -1,31 +1,5 @@
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%                               NOMENCLATURE
-%
-% alpha - over-relaxation factor
-% dx - distance between neigbor nodes, dx=x/(n-1)
-% error_max - the value of the largest relative error in the node points
-% error_t - the relative error of a node point
-% itr_max - the maximum number of iterations allowed
-% L - total length
-% n - number of nodes in the i and j direction
-% Tc - node temperature 
-% T_c(i,j) - the node temperature calculated using the recursion relation
-% tol - the convergence criterion
-%
-%                                                       Written by Shu Xu
-%                                                       08/02/2013
-%                                                       Revised 9/4/13 JBR
-% -------------------------------------------------------------------------
-%  Fix the coordinate issue in countor & surface plot (flip x,y coordiate)
-%
-%                                                     Revised 4/14/2022 Wu
-%                                                     
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                 PROGRAM 
-function Ex8_5_2D_SOR
+function Question3
 clear all;clc;close all;             % Clear workspace and command window, 
                                      %      close all figures
 L=0.5; y=L; n=41; dx=L/(n-1);        % Specify parameters of the problem
@@ -60,7 +34,6 @@ end
 if k>itr_max-1                     % Check for maximum iteration limit 
     fprintf('Maximum iterations exceeded without convergence\n')
 end
-%% Output
 x=linspace(0,0.5,n);                 % Set x values for contour map
 y=linspace(0,0.5,n);                 % Set y values for contour map
 [X,Y]=meshgrid(x,y);
@@ -69,7 +42,6 @@ y=linspace(0,0.5,n);                 % Set y values for contour map
 % coordinate. Need to flip "X" and "Y" in the countour plot
 figure, contour(Y,X,T,8,'ShowText','on')                     % Generate contour map from solution
 figure, surf(Y,X,T)
-fprintf('The 2-D BVP problem has been solved by the SOR method in %d iterations!\n',k);
 %
 % Nested function that applies the recursion relation
 % 
@@ -78,5 +50,3 @@ fprintf('The 2-D BVP problem has been solved by the SOR method in %d iterations!
         tc=(TT(ii+1,jj)+TT(ii-1,jj)+TT(ii,jj+1)+TT(ii,jj-1))/4+1250*xx*yy*dx^2;
     end
 end
-%                                PROGRAM END
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
