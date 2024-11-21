@@ -13,4 +13,3 @@ function Cd = DragCoefficient(Re,v)
         Cd=Cd0*((1-0.445*Ma+4.84^Ma^2-9.73*Ma^3+6.93*Ma^4/sqrt(1+1.2*Ma*Cd0)));
     end
 end
-
