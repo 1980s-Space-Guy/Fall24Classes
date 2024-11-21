@@ -9,7 +9,7 @@ function PartB
     r=0.05; % m
     rho_ball=7860; % kg/m3
     m=4/3*pi*r^3*rho_ball; % kg
-    drop_height=2000; %m
+    drop_height=2000; % m
 
     % Solving ODE
     tspan=[0,130]; % Simulating the ball being dropped from t=0 s to t=75 s
@@ -38,25 +38,23 @@ function PartB
     plot(tt,yy);
 
     % Using nonlinear solver to find the time when the ball hits the ground
-    guess=[90,110];
     function height=height_func(time)
         height=deval(ode_soln,time,1);
     end
     options=optimset('Display','off');
-    ground_hit_time=fzero(@height_func,guess,options);
+    ground_hit_time=fzero(@height_func,tspan,options);
     % Getting the speed when the ball hits the ground
     ground_hit_speed=abs(deval(ode_soln,ground_hit_time,2));
 
     % Calculating the change in thermal energy
     grav_int=fnint(gravity_func);
-    change_PE=m*(ppval(grav_int,drop_height)-ppval(grav_int,0));
+    change_PE=m*(ppval(grav_int,0)-ppval(grav_int,drop_height));
     change_KE=1/2*m*ground_hit_speed^2;
     change_TE=-change_KE-change_PE;
     TE_generated=abs(change_TE);
-
     % Output
     fprintf('Time taken to hit ground: %2.3f s\n',ground_hit_time)
     fprintf('Speed when ground hit: %2.3f m/s\n',ground_hit_speed)
-    fprintf('Thermal energy generated: %5.0f J\n\n', TE_generated)
-    fprintf('Energy lost from friction shouls be the same as the thermal energy generated')
+    fprintf('Thermal energy generated: %5.0f J\n', TE_generated)
+    fprintf('Energy lost from friction should be the same as the thermal energy generated\n\n')
 end
