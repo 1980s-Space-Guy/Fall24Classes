@@ -38,18 +38,17 @@ function PartA
     plot(tt,yy);
 
     % Using nonlinear solver to find the time when the ball hits the ground
-    guess=[45,55];
     function height=height_func(time)
         height=deval(ode_soln,time,1);
     end
     options=optimset('Display','off');
-    ground_hit_time=fzero(@height_func,guess,options);
+    ground_hit_time=fzero(@height_func,tspan,options);
     % Getting the speed when the ball hits the ground
     ground_hit_speed=abs(deval(ode_soln,ground_hit_time,2));
 
     % Calculating the change in thermal energy
     grav_int=fnint(gravity_func);
-    change_PE=m*(ppval(grav_int,drop_height)-ppval(grav_int,0));
+    change_PE=m*(ppval(grav_int,0)-ppval(grav_int,drop_height));
     change_KE=1/2*m*ground_hit_speed^2;
     change_TE=-change_KE-change_PE;
     TE_generated=abs(change_TE);
