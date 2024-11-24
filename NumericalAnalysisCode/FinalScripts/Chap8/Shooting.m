@@ -15,7 +15,7 @@ yy=deval(correct_soln,xx,2);
 plot(xx,yy)
 
 function ode_to_solve=hahahaha(~,y)
-    %y(1) is y, y(2) is y'
+    % y(1) is y, y(2) is y'
     ode_to_solve(1,1)=y(2);
     ode_to_solve(2,1)=5*y(1);
 end
