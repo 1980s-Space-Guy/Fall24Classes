@@ -57,5 +57,5 @@ function PartC
     fprintf('Time taken to hit ground: %2.3f s\n',ground_hit_time)
     fprintf('Speed when ground hit: %2.3f m/s\n',ground_hit_speed)
     fprintf('Thermal energy generated: %5.0f J\n', TE_generated)
-    fprintf('Energy lost from friction shouls be the same as the thermal energy generated\n')
+    fprintf('Energy lost from friction should be the same as the thermal energy generated\n')
 end
