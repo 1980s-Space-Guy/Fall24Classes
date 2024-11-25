@@ -29,7 +29,7 @@ function FinalTakeHome
             % Initial guess for C and C'
             % The concentration and the change in concentration
             % with respect to r is the same at ri
-            diff_C_init=[deval(soln1,ri,1),Dc/Dd*deval(soln1,ri,2)];
+            diff_C_init=[deval(soln1,ri,1),deval(soln1,ri,2)];
             % Solving second ODE
             soln2=ode45(@ODE_diffusion,diff_r_span,diff_C_init);
     
@@ -50,7 +50,7 @@ function FinalTakeHome
     
         % Finding concentration at r=0
         options=optimset('Display','off');
-        Cr0=fzero(@shoot_the_catalyst,[0.5,0.7],options);
+        Cr0=fzero(@shoot_the_catalyst,[0.4,0.6],options);
     
         % Solving ode from r=0 to r=ri
         % Initial condition at r=0
@@ -60,7 +60,7 @@ function FinalTakeHome
         % Solving ode from r=ri to r=ro
         % Initial Condition at r=ri
         % (same as endpoints from prev sol)
-        Cri=[deval(cat_soln,ri,1),Dc/Dd*deval(cat_soln,ri,2)];2
+        Cri=[deval(cat_soln,ri,1),deval(cat_soln,ri,2)];
         diff_soln=ode45(@ODE_diffusion,diff_r_span,Cri);
     
         %% Question 2 main code
@@ -118,7 +118,7 @@ function FinalTakeHome
     %     TCR_error(j)=TCR_residual(ro_guesses(j)); %#ok<AGROW>
     % end
     % plot(ro_guesses,TCR_error)
-    % Answer appears to be around 1 to 1.4
+    % Answer appears to be arounf 0.9 to 1.1
     options=optimset('Display','off');
     ro_for_TCR_of3=fzero(@TCR_residual,[0.9,1.1],options);
     fprintf('ro value to get a total conversion rate of 3: %1.5f\n\n',...
