@@ -46,11 +46,11 @@ function FinalTakeHome
         % end
         % plot(CC,error)
         % Actual initial starting concentration appears to be
-        % between 0.4 and 0.6
+        % linear, so setting the bounds to be from 0 to 1 is sufficient
     
         % Finding concentration at r=0
         options=optimset('Display','off');
-        Cr0=fzero(@shoot_the_catalyst,[0.5,0.7],options);
+        Cr0=fzero(@shoot_the_catalyst,[0,1],options);
     
         % Solving ode from r=0 to r=ri
         % Initial condition at r=0
@@ -60,7 +60,7 @@ function FinalTakeHome
         % Solving ode from r=ri to r=ro
         % Initial Condition at r=ri
         % (same as endpoints from prev sol)
-        Cri=[deval(cat_soln,ri,1),Dc/Dd*deval(cat_soln,ri,2)];2
+        Cri=[deval(cat_soln,ri,1),Dc/Dd*deval(cat_soln,ri,2)];
         diff_soln=ode45(@ODE_diffusion,diff_r_span,Cri);
     
         %% Question 2 main code
@@ -71,20 +71,13 @@ function FinalTakeHome
     
         l=1;
         % creating a large list from r=0 to r=ri (inside cat)
-        % and from r=ri to r=ro (diffusion layer)
         cat_rr=linspace(0,ri,1000);
-        diff_rr=linspace(ri,ro,1000);
-        % getting the concentrations at those r values
+        % getting the concentrations from r=0 to r=ri
         cat_CC=deval(cat_soln,cat_rr,1);
-        diff_CC=deval(diff_soln,diff_rr,1);
-        % creating a list of the terms inside the integral
-        % r*C^2
+        % creating a list of the terms inside the integral (r*C^2)
         cat_int_term=cat_rr.*cat_CC.^2;
-        diff_int_term=diff_rr.*diff_CC.^2;
-        % getting total conversion rate by adding the two
-        % integrals together
-        TCR=2*pi*k*l*(trapz(cat_rr,cat_int_term)+...
-            trapz(diff_rr,diff_int_term));
+        % getting total conversion rate
+        TCR=2*pi*k*l*trapz(cat_rr,cat_int_term);
     end
 
     %% Question 1 and 2 output
@@ -109,18 +102,18 @@ function FinalTakeHome
     % conversion rate (3)
     function error=TCR_residual(ro_guess)
         [TCR_new_ro,~,~]=Q12(ro_guess);
-        error=TCR_new_ro-3;
+        error=TCR_new_ro-0.5;
     end
 
     % Plotting different values of ro to get a guess for fzero
-    % ro_guesses=linspace(0.7,2,15);
-    % for j=1:length(ro_guesses)
-    %     TCR_error(j)=TCR_residual(ro_guesses(j)); %#ok<AGROW>
-    % end
-    % plot(ro_guesses,TCR_error)
-    % Answer appears to be around 1 to 1.4
+    ro_guesses=linspace(0.2,0.7,15);
+    for j=1:length(ro_guesses)
+        TCR_error(j)=TCR_residual(ro_guesses(j)); %#ok<AGROW>
+    end
+    plot(ro_guesses,TCR_error)
+    % Answer appears to be around 0.3 to 0.4
     options=optimset('Display','off');
-    ro_for_TCR_of3=fzero(@TCR_residual,[0.9,1.1],options);
-    fprintf('ro value to get a total conversion rate of 3: %1.5f\n\n',...
-            ro_for_TCR_of3)
+    % ro_for_TCR_of3=fzero(@TCR_residual,[0.3,0.4],options);
+    % fprintf('ro value to get a total conversion rate of 0.6: %1.5f\n\n',...
+    %         ro_for_TCR_of3)
 end
