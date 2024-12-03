@@ -106,14 +106,14 @@ function FinalTakeHome
     end
 
     % Plotting different values of ro to get a guess for fzero
-    ro_guesses=linspace(0.2,0.7,15);
-    for j=1:length(ro_guesses)
-        TCR_error(j)=TCR_residual(ro_guesses(j)); %#ok<AGROW>
-    end
-    plot(ro_guesses,TCR_error)
-    % Answer appears to be around 0.3 to 0.4
+    % ro_guesses=linspace(0.2,0.7,15);
+    % for j=1:length(ro_guesses)
+    %     TCR_error(j)=TCR_residual(ro_guesses(j)); %#ok<AGROW>
+    % end
+    % plot(ro_guesses,TCR_error)
+    % Answer appears to be around 0.55 to 0.8
     options=optimset('Display','off');
-    % ro_for_TCR_of3=fzero(@TCR_residual,[0.3,0.4],options);
-    % fprintf('ro value to get a total conversion rate of 0.6: %1.5f\n\n',...
-    %         ro_for_TCR_of3)
+    ro_for_TCR_of3=fzero(@TCR_residual,[0.55,0.8],options);
+    fprintf('ro value to get a total conversion rate of 0.5: %1.5f\n\n',...
+            ro_for_TCR_of3)
 end

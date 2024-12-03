@@ -35,6 +35,7 @@ function problem2
     soln=fsolve(@bvp,initial_guess,options);
     plot(xx,soln);
 
+    % These should equal 0
     function f=bvp(y)
         f(1,1)=1/2/dx*(-3*y(1)+4*y(2)-y(3));
         for i=2:n-1
@@ -59,6 +60,9 @@ function problem3
     plot(xx,soln1); hold on;
     plot(xx,soln2);
 
+    % These functions should be equal to 0
+    % because y(0) and y(1) = 0, all that's shown is
+    % the y(0) and y(1)
     function f=bvp(y)
         f(1,1)=y(1);
         for i=2:n-1
