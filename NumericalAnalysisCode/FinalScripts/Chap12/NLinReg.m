@@ -2,11 +2,11 @@
 % Using Langmuir isotherm
 
 % experimental data
-x = [0.5 0.387 0.24 0.136 0.04 0.011];
-y = [1.255 1.25 1.189 1.124 0.783 0.402];
+x = [0.051,0.101,0.156,0.194,0.253];
+y = [15.8,21.08,24.8,26.99,30.25];
 
 % nonlinear regression
-f = @(pars,x) pars(1)*x./(pars(2)+x);
+f = @(pars,x) pars(1).*pars(2).*x./((pars(1)-1).*x+1)./(1-x);
 parguess = [1.3 0.03];
 [pars,resid,J,CovB,MSE] = nlinfit(x,y,f,parguess);
 
@@ -30,7 +30,7 @@ upper=ypred+delta;
 % Plot experimental data
 plot(x,y,'ko'); xlabel('x'); ylabel('y'); hold on;
 % Plot regression curve
-xfit = linspace(0.5, 0.011);
+xfit = linspace(min(x),max(x),100);
 plot(xfit,f(pars,xfit),'DisplayName','fitted model')
 legend show
 % Plotting confidence interval curves

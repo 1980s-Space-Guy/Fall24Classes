@@ -94,3 +94,34 @@ function error=builtin_quiz(guess)
         dydx(2,1)=-exp(y(1));
     end
 end
+
+%% Exam Problem
+
+% silly_x=linspace(-0.5,1,100);
+% for i=1:length(silly_x)
+%     silly_y(i)=fart2(silly_x(i)); %#ok<SAGROW>
+% end
+% plot(silly_x,silly_y)
+
+soln_fzero=fzero(@fart2,[-0.5,1]);
+
+timespan=[1,2];
+correct_y0=[1,soln_fzero];
+correct_soln=ode45(@fart1,timespan,correct_y0);
+xx=linspace(1,2,50);
+yy=deval(correct_soln,xx,1);
+plot(xx,yy)
+
+function ode_to_solve=fart1(x,y)
+    % y(1) is y, y(2) is y'
+    ode_to_solve(1,1)=y(2);
+    ode_to_solve(2,1)=y(2)+2*(y(1)-log(x))^3-1/x;
+end
+
+function error=fart2(guess)
+    timespan=[1,2];
+    y0=[1,guess];
+    soln_ode=ode15s(@fart1,timespan,y0);
+    dy_end=deval(soln_ode,2,1); % finds the y value at x=2
+    error=dy_end-(1/2+log(2));
+end
